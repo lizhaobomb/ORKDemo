@@ -521,6 +521,7 @@
 				F1D8974D1AEF7E7B00551316 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F1D8974E1AEF7E7B00551316 /* Build configuration list for PBXNativeTarget "ORKDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +530,7 @@
 				F1D897501AEF7E7B00551316 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
