@@ -12,6 +12,8 @@
 	<dict>
 		<key>624F77AC001DC573C489B7DCDE2276C84A258350</key>
 		<string>https://github.com/lizhaobomb/ORKDemo.git</string>
+		<key>9CF6181E3789E3853840089C16D4B9FDDB9B31E2</key>
+		<string>https://github.com/ResearchKit/ResearchKit.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ORKDemo.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>624F77AC001DC573C489B7DCDE2276C84A258350</key>
 		<string>../..</string>
+		<key>9CF6181E3789E3853840089C16D4B9FDDB9B31E2</key>
+		<string>../../../ResearchKit</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/lizhaobomb/ORKDemo.git</string>
@@ -35,6 +39,14 @@
 			<string>624F77AC001DC573C489B7DCDE2276C84A258350</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ORKDemo</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9CF6181E3789E3853840089C16D4B9FDDB9B31E2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ResearchKit</string>
 		</dict>
 	</array>
 </dict>

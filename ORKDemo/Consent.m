@@ -7,126 +7,121 @@
 //
 
 #import "Consent.h"
+#define _N(x) [NSNumber numberWithInteger:x]
 
 @implementation Consent
 
-public var ConsentDocument: ORKConsentDocument {
++ (ORKConsentDocument *) consentDocument {
     
-    let consentDocument = ORKConsentDocument()
+    ORKConsentDocument *consentDocument = [[ORKConsentDocument alloc] init];
     
-    consentDocument.title = NSLocalizedString("Example Consent", comment: "")
+    consentDocument.title = NSLocalizedString(@"Example Consent", comment: @"");
     
-    consentDocument.signaturePageTitle = NSLocalizedString("Consent", comment: "")
+    consentDocument.signaturePageTitle = NSLocalizedString(@"Consent", comment: @"");
     
-    consentDocument.signaturePageContent = NSLocalizedString("I agree to participate in this research project.", comment: "")
+    consentDocument.signaturePageContent = NSLocalizedString(@"I agree to participate in this research project.", comment: @"");
     
-    let participantSignatureTitle = NSLocalizedString("Participant", comment: "")
-    let participantSignature = ORKConsentSignature(forPersonWithTitle: participantSignatureTitle, dateFormatString: nil, identifier: "ConsentDocumentParticipantSignature")
+    NSString *participantSignatureTitle = NSLocalizedString(@"Participant", comment: @"");
+    ORKConsentSignature *participantSignature = [ORKConsentSignature signatureForPersonWithTitle:participantSignatureTitle dateFormatString:nil identifier:@"ConsentDocumentParticipantSignature"];
     
-    consentDocument.addSignature(participantSignature)
+    [consentDocument addSignature:participantSignature];
     
-    let consentSectionTypes: [ORKConsentSectionType] = [
-                                                        .Overview,
-                                                        .Custom,
-                                                        .StudySurvey,
-                                                        .DataGathering,
-                                                        .Privacy,
-                                                        .DataUse,
-                                                        .TimeCommitment,
-                                                        .Withdrawing
-                                                        ]
+    NSArray *consentSectionTypes = [NSArray arrayWithObjects:
+                                    _N(ORKConsentSectionTypeOverview),
+                                    _N(ORKConsentSectionTypeCustom),
+                                    _N(ORKConsentSectionTypeStudySurvey),
+                                    _N(ORKConsentSectionTypeDataGathering),
+                                    _N(ORKConsentSectionTypePrivacy),
+                                    _N(ORKConsentSectionTypeDataUse),
+                                    _N(ORKConsentSectionTypeTimeCommitment),
+                                    _N(ORKConsentSectionTypeWithdrawing), nil];
     
-    var consentSections: [ORKConsentSection] = consentSectionTypes.map { contentSectionType in
-        let consentSection = ORKConsentSection(type: contentSectionType)
-        
-        //Overview Consent Section
-        
-        if consentSection.type == .Overview {
-            let overview = "This is a small study to look at the correlation between Quality of Life and walking exercises."
-            consentSection.title = "SP+EE Demo"
-            consentSection.summary = overview
-            consentSection.content = overview
+    NSMutableArray *consentSections = [NSMutableArray array];
+    for (NSNumber *type in consentSectionTypes) {
+        ORKConsentSection *consentSection = [[ORKConsentSection alloc] initWithType:[type integerValue]];
+        if (consentSection.type == ORKConsentSectionTypeOverview) {
+            NSString *overview = @"This is a small study to look at the correlation between Quality of Life and walking exercises.";
+            consentSection.title = @"SP+EE Demo";
+            consentSection.summary = overview;
+            consentSection.content = overview;
         }
         
-        if consentSection.type == .Custom {
+        if (consentSection.type == ORKConsentSectionTypeCustom) {
             
-            consentSection.customImage = UIImage(named: "walking.png")
-            let walking = "This research project will involve doing walking exercises everyday."
-            consentSection.title = "Walking Exercises"
-            consentSection.summary = walking
-            consentSection.content = walking
+            consentSection.customImage = [UIImage imageNamed:@"walking"];
+            NSString *walking = @"This research project will involve doing walking exercises everyday.";
+            consentSection.title = @"Walking Exercises";
+            consentSection.summary = walking;
+            consentSection.content = walking;
         }
         
-        if consentSection.type == .StudySurvey {
-            let qol = "As part of this project you will also need to fill out a Quality of Life questionnaire."
-            consentSection.title = "Quality of Life"
-            consentSection.summary = qol
-            consentSection.content = qol
+        if (consentSection.type == ORKConsentSectionTypeStudySurvey) {
+            NSString *qol = @"As part of this project you will also need to fill out a Quality of Life questionnaire.";
+            consentSection.title = @"Quality of Life";
+            consentSection.summary = qol;
+            consentSection.content = qol;
         }
         
-        if consentSection.type == .DataGathering {
-            let data = "Data will be gathered everytime you complete a walk or a questionnaire."
-            consentSection.title = "Data"
-            consentSection.summary = data
-            consentSection.content = data
+        if (consentSection.type == ORKConsentSectionTypeDataGathering) {
+            NSString *data = @"Data will be gathered everytime you complete a walk or a questionnaire.";
+            consentSection.title = @"Data";
+            consentSection.summary = data;
+            consentSection.content = data;
         }
         
-        if consentSection.type == .Privacy {
-            let privacy = "The data we collect will be securely stored on our servers."
-            consentSection.title = "Privacy"
-            consentSection.summary = privacy
-            consentSection.content = privacy
+        if (consentSection.type == ORKConsentSectionTypePrivacy) {
+            NSString *privacy = @"The data we collect will be securely stored on our servers.";
+            consentSection.title = @"Privacy";
+            consentSection.summary = privacy;
+            consentSection.content = privacy;
         }
         
-        if consentSection.type == .DataUse {
-            let dataUse = "We will then look for correlations between the walking exercises and Quality of Life."
-            consentSection.title = "Data Use"
-            consentSection.summary = dataUse
-            consentSection.content = dataUse
+        if (consentSection.type == ORKConsentSectionTypeDataUse) {
+            NSString *dataUse = @"We will then look for correlations between the walking exercises and Quality of Life.";
+            consentSection.title = @"Data Use";
+            consentSection.summary = dataUse;
+            consentSection.content = dataUse;
         }
         
-        if consentSection.type == .TimeCommitment {
-            let time = "Contributing your data to this project will take about 10 minutes a day."
-            consentSection.title = "Time Commitment"
-            consentSection.summary = time
-            consentSection.content = time
+        if (consentSection.type == ORKConsentSectionTypeTimeCommitment) {
+            NSString *time = @"Contributing your data to this project will take about 10 minutes a day.";
+            consentSection.title = @"Time Commitment";
+            consentSection.summary = time;
+            consentSection.content = time;
         }
         
-        if consentSection.type == .Withdrawing {
-            let withdrawal = "You can withdraw from the research project at any time."
-            consentSection.title = "Withdrawing"
-            consentSection.summary = withdrawal
-            consentSection.content = withdrawal
+        if (consentSection.type == ORKConsentSectionTypeWithdrawing) {
+            NSString *withdrawal = @"You can withdraw from the research project at any time.";
+            consentSection.title = @"Withdrawing";
+            consentSection.summary = withdrawal;
+            consentSection.content = withdrawal;
         }
         
-        return consentSection
+        [consentSections addObject:consentSection];
     }
     
-    consentDocument.sections = consentSections
-    
-    return consentDocument
+    consentDocument.sections = consentSections;
+    return consentDocument;
 }
 
-public var ConsentTask: ORKOrderedTask {
+
++ (ORKOrderedTask *) consentTask {
     
-    var steps = [ORKStep]()
+    NSMutableArray *steps = [NSMutableArray array];
     
-    var consentDocument = ConsentDocument
+    ORKConsentDocument *consentDocument = [self consentDocument];
+    ORKVisualConsentStep *visualConsentStep = [[ORKVisualConsentStep alloc] initWithIdentifier:@"VisualConsentStep" document:consentDocument];
+    [steps addObject:visualConsentStep];
     
-    let visualConsentStep = ORKVisualConsentStep(identifier: "VisualConsentStep", document: consentDocument)
+    ORKConsentSignature *signature = [consentDocument.signatures firstObject];
     
-    steps += [visualConsentStep]
+    ORKConsentReviewStep *reviewConsentStep = [[ORKConsentReviewStep alloc] initWithIdentifier:@"ConsentReviewStep" signature:signature inDocument:consentDocument];
     
-    let signature = consentDocument.signatures!.first as! ORKConsentSignature
+    reviewConsentStep.text = @"Review Consent";
+    reviewConsentStep.reasonForConsent = @"Consent to join study";
     
-    let reviewConsentStep = ORKConsentReviewStep(identifier: "ConsentReviewStep", signature: signature, inDocument: consentDocument)
-    
-    reviewConsentStep.text = "Review Consent"
-    reviewConsentStep.reasonForConsent = "Consent to join study"
-    
-    steps += [reviewConsentStep]
-    
-    return ORKOrderedTask(identifier: "ConsentTask", steps: steps)
+    [steps addObject:self];
+    return [[ORKOrderedTask alloc] initWithIdentifier:@"ConsentTask" steps:steps];
 }
 
 @end
